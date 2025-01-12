@@ -62,8 +62,8 @@
                                                 <td>{{ $dataUser->name }}</td>
                                                 <td>{{ $dataUser->email }}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-primary"><i
-                                                            class="fas fa-pen"></i>Edit</a>
+                                                    <a href="{{ route('user.edit', ['id' => $dataUser->id]) }}"
+                                                        class="btn btn-primary"><i class="fas fa-pen"></i>Edit</a>
                                                     <a href="" class="btn btn-danger"><i
                                                             class="fas fa-trash-alt"></i>Hapus</a>
                                                 </td>
