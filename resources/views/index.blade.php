@@ -64,10 +64,43 @@
                                                 <td>
                                                     <a href="{{ route('user.edit', ['id' => $dataUser->id]) }}"
                                                         class="btn btn-primary"><i class="fas fa-pen"></i>Edit</a>
-                                                    <a href="" class="btn btn-danger"><i
+                                                    <a data-toggle="modal" data-target="#modal-hapus{{ $dataUser->id }}"
+                                                        href="" class="btn btn-danger"><i
                                                             class="fas fa-trash-alt"></i>Hapus</a>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="modal-hapus{{ $dataUser->id }}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Konfirmasi Hapus Data</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Apakah kamu yakin ingin menghapus data user
+                                                                <b>{{ $dataUser->name }}</b>
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <form action="{{ route('user.delete', ['id' => $dataUser]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Ya, hapus
+                                                                    data</button>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
