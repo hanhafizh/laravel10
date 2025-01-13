@@ -21,13 +21,13 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $data = [
+        $login = [
             'email' => $request->email,
             'password' => $request->password,
         ];
 
-        if (Auth::attempt($data)) {
-            return redirect()->route('dashboard');
+        if (Auth::attempt($login)) {
+            return redirect()->route('admin.dashboard');
         } else {
             return redirect()->route('login')->with('failed', 'Email atau Password Salah');
         }
@@ -36,6 +36,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Kamu berhasil Logout');
+        return redirect()->route('login')->with('success', 'Kamu berhasil ');
     }
 }
