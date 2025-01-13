@@ -21,7 +21,7 @@
 
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('user.update', ['id' => $data->id]) }}" method="POST">
+                <form action="{{ route('admin.user.update', ['id' => $data->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row">
