@@ -100,12 +100,22 @@
     {{-- Sweet Alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    @if ($message = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "{{ $message }}",
+                icon: "success",
+                draggable: true
+            });
+        </script>
+    @endif
+
     @if ($message = Session::get('failed'))
         <script>
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "{{ $message }}!",
+                text: "{{ $message }}",
             });
         </script>
     @endif
