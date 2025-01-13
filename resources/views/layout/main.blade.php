@@ -313,6 +313,36 @@
     {{-- <script src="{{ asset('lte/dist/js/demo.js') }}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('lte/dist/js/pages/dashboard.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if ($message = Session::get('success_add_user'))
+        <script>
+            Swal.fire({
+                title: "{{ $message }}",
+                icon: "success",
+                draggable: true
+            });
+        </script>
+    @endif
+
+    @if ($message = Session::get('success_update_user'))
+        <script>
+            Swal.fire({
+                title: "{{ $message }}",
+                icon: "success",
+                draggable: true
+            });
+        </script>
+    @endif
+
+    @if ($message = Session::get('success_delete_user'))
+        <script>
+            Swal.fire({
+                title: "{{ $message }}",
+                icon: "success",
+                draggable: true
+            });
+        </script>
+    @endif
 </body>
 
 </html>

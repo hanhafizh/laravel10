@@ -40,7 +40,7 @@ class HomeController extends Controller
 
         User::create($data);
 
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.user.index')->with('success_add_user', 'Kamu berhasil menambahkan User');
     }
 
     public function edit(Request $request, $id)
@@ -71,7 +71,7 @@ class HomeController extends Controller
 
         User::whereId($id)->update($data);
 
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.user.index')->with('success_update_user', 'Kamu berhasil update User');
     }
 
     public function delete($id)
@@ -82,6 +82,6 @@ class HomeController extends Controller
             $data->delete();
         }
 
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.user.index')->with('success_delete_user', 'Kamu berhasil delete User');
     }
 }
