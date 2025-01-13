@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Log in</title>
+    <title>Register Akun</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,12 +25,25 @@
                 <a href="{{ route('login') }}" class="h1"><b>Admin</b></a>
             </div>
             <div class="card-body">
-                {{-- <p class="login-box-msg">Sign in to start your session</p> --}}
+                {{-- <p class="login-box-msg">Register Akun</p> --}}
 
-                <form action="{{ route('login.proses') }}" method="post">
+                <form action="{{ route('register.proses') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="text" name="name" class="form-control" placeholder="Masukkan Nama Lengkap"
+                            value="{{ old('name') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user-alt"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @error('name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Masukkan Email"
+                            value="{{ old('email') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -41,7 +54,7 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="Masukkan Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -55,17 +68,16 @@
 
                         <!-- /.col -->
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
 
-
-                <!-- /.social-auth-links -->
-                <p class="login-box-msg mt-4">Belum punya akun?
-                    <a href="{{ route('register') }}" class="text-center">Daftar Akun</a>
+                <p class="login-box-msg mt-4">Sudah punya akun?
+                    <a href="{{ route('login') }}" class="text-center">Login</a>
                 </p>
+
 
 
             </div>

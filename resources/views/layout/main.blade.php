@@ -343,6 +343,16 @@
             });
         </script>
     @endif
+
+    @if ($message = Session::get('success_register_user'))
+        <script>
+            Swal.fire({
+                title: "{{ $message }}",
+                icon: "success",
+                draggable: true
+            });
+        </script>
+    @endif
 </body>
 
 </html>
