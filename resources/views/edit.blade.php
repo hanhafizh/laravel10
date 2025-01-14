@@ -21,7 +21,8 @@
 
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('admin.user.update', ['id' => $data->id]) }}" method="POST">
+                <form action="{{ route('admin.user.update', ['id' => $data->id]) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -32,6 +33,17 @@
                                 </div>
                                 <form>
                                     <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Photo Profile</label>
+                                            <div class="mt-2 mb-2">
+                                                <img src="{{ asset('storage/photo-user/' . $data->image) }}" alt=""
+                                                    width="100">
+                                            </div>
+                                            <input type="file" class="form-control" name="image">
+                                            @error('image')
+                                                <small>{{ $message }}</small>
+                                            @enderror
+                                        </div>
                                         <div class="form-group">
                                             <label>Email</label>
                                             <input type="email" class="form-control" name="email"

@@ -21,7 +21,7 @@
 
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('admin.user.store') }}" method="POST">
+                <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -32,9 +32,16 @@
                                 <form>
                                     <div class="card-body">
                                         <div class="form-group">
+                                            <label>Photo Profile</label>
+                                            <input type="file" class="form-control" name="image">
+                                            @error('image')
+                                                <small>{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label>Email</label>
                                             <input type="email" class="form-control" name="email"
-                                                placeholder="Masukkan Email">
+                                                placeholder="Masukkan Email" value="{{ old('email') }}">
                                             @error('email')
                                                 <small>{{ $message }}</small>
                                             @enderror
@@ -42,7 +49,7 @@
                                         <div class="form-group">
                                             <label>Nama</label>
                                             <input type="text" class="form-control" name="name"
-                                                placeholder="Masukkan Nama">
+                                                placeholder="Masukkan Nama" value="{{ old('name') }}">
                                             @error('name')
                                                 <small>{{ $message }}</small>
                                             @enderror

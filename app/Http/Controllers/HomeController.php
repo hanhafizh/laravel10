@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
@@ -28,15 +29,31 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'name' => 'required',
-            'password' => 'required',
+            'image'     => 'required|mimes:png,jpg,jpeg|max:2048',
+            'email'     => 'required|email|unique:users,email',
+            'name'      => 'required|string|max:255',
+            'password'  => 'required|string|min:6',
         ]);
 
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-        $data['email'] = $request->email;
-        $data['name'] = $request->name;
-        $data['password'] = Hash::make($request->password);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        // Proses unggah gambar
+        $image      = $request->file('image');
+        $uniqueId   = uniqid();
+        $filename   = $uniqueId . '_' . $image->getClientOriginalName();
+        $path       = 'photo-user/' . $filename;
+
+        Storage::disk('public')->put($path, file_get_contents($image));
+
+        // Data yang akan disimpan
+        $data = [
+            'email'     => $request->email,
+            'name'      => $request->name,
+            'password'  => Hash::make($request->password),
+            'image'     => $filename,
+        ];
 
         User::create($data);
 
@@ -45,8 +62,7 @@ class HomeController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $data = User::find($id);
-
+        $data = User::findOrFail($id);
 
         return view('edit', compact('data'));
     }
@@ -54,31 +70,63 @@ class HomeController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'name' => 'required',
-            'password' => 'nullable',
+            'image'     => 'mimes:jpeg,png,jpg|max:2048',
+            'email'     => 'required|email|unique:users,email,' . $id,
+            'name'      => 'required|string|max:255',
+            'password'  => 'nullable|string|min:6',
         ]);
 
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
 
-        $data['email'] = $request->email;
-        $data['name'] = $request->name;
+        $user = User::findOrFail($id); // Temukan user berdasarkan ID
+        $data = [
+            'email' => $request->email,
+            'name'  => $request->name,
+        ];
 
+        // Proses unggah gambar jika ada
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($user->image && Storage::disk('public')->exists('photo-user/' . $user->image)) {
+                Storage::disk('public')->delete('photo-user/' . $user->image);
+            }
+
+            // Simpan gambar baru
+            $image = $request->file('image');
+            $uniqueId = uniqid();
+            $filename = $uniqueId . '_' . $image->getClientOriginalName();
+            $path = 'photo-user/' . $filename;
+
+            Storage::disk('public')->put($path, file_get_contents($image));
+            $data['image'] = $filename;
+        }
+
+        // Hash password jika ada perubahan
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
         }
 
-
-        User::whereId($id)->update($data);
+        // Update data user
+        $user->update($data);
 
         return redirect()->route('admin.user.index')->with('success_update_user', 'Kamu berhasil update User');
     }
+
+
 
     public function delete($id)
     {
         $data = User::find($id);
 
         if ($data) {
+            // Hapus file gambar dari storage
+            if ($data->image && Storage::disk('public')->exists('photo-user/' . $data->image)) {
+                Storage::disk('public')->delete('photo-user/' . $data->image);
+            }
+
+            // Hapus data dari database
             $data->delete();
         }
 
