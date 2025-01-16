@@ -33,10 +33,15 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Photo Profile</label>
-                                            <input type="file" class="form-control" name="image">
+                                            <div id="image-preview" class="mt-2 mb-2">
+                                                <!-- Gambar akan ditampilkan di sini -->
+                                            </div>
+                                            <input type="file" class="form-control" id="image" name="image"
+                                                onchange="previewImage(event)">
                                             @error('image')
                                                 <small>{{ $message }}</small>
                                             @enderror
+
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>
@@ -75,4 +80,24 @@
             </div>
         </section>
     </div>
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const imagePreview = document.getElementById('image-preview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    imagePreview.innerHTML =
+                        `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 200px;">`;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                imagePreview.innerHTML = '';
+            }
+        }
+    </script>
 @endsection

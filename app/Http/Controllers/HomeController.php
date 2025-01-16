@@ -36,7 +36,7 @@ class HomeController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
+            return redirect()->back()->with('success', 'File uploaded successfully')->withInput()->withErrors($validator);
         }
 
         // Proses unggah gambar
