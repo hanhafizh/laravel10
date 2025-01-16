@@ -14,7 +14,7 @@ class DummySeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 1005; $i < 10000; $i++) {
             User::create(
                 [
                     'name' => 'User' . $i,

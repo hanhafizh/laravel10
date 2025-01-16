@@ -128,8 +128,8 @@
 @section('scripts')
     <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
     <script>
-        let table = new DataTable('#myTable', {
-            responsive: true
+        $(document).ready(function() {
+            $('#myTable').DataTable();
         });
     </script>
 @endsection

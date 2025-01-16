@@ -30,6 +30,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Responsive Hover Table</h3>
 
+                                {{-- search-page --}}
                                 <div class="card-tools">
                                     <form action="{{ route('admin.user.index') }}" method="GET">
                                         <div class="input-group input-group-sm" style="width: 150px;">
