@@ -10,10 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = User::get();
-        return view('index', compact('data'));
+        // $data = User::get();
+        $data = new User;
+
+        if ($request->get('search')) {
+            $data = $data->where('name', 'LIKE', '%' . $request->get('search') . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->get('search') . '%');
+        }
+
+        $data = $data->get();
+
+        return view('index', compact('data', 'request'));
     }
 
     public function dashboard()
