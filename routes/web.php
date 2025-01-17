@@ -13,6 +13,8 @@ Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/register_proses', [LoginController::class, 'register_proses'])->name('register.proses');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
+    // Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('can:view_dashboard');
+    // Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('role:admin|writer');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/user', [HomeController::class, 'index'])->name('user.index');

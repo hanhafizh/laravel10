@@ -10,6 +10,23 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        // pembatasan permission di controller
+        // $this->middleware(['role:admin|writer']);
+        // $this->middleware(['role_or_permission:writer|view_dashboard']);
+    }
+    public function dashboard()
+    {
+        // # Pembatasan roles melalui controller
+        // dd(auth()->user()->getRoleNames());
+        // if (auth()->user()->can('view_dashboard')) {
+        //     return view('dashboard');
+        // }
+        // return abort(403);
+        return view('dashboard');
+    }
+
     public function index(Request $request)
     {
         // $data = User::get();
@@ -23,11 +40,6 @@ class HomeController extends Controller
         $data = $data->get();
 
         return view('index', compact('data', 'request'));
-    }
-
-    public function dashboard()
-    {
-        return view('dashboard');
     }
 
     public function create()
