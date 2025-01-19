@@ -88,6 +88,14 @@ class HomeController extends Controller
         return view('edit', compact('data'));
     }
 
+    // one to many, details
+    public function detail(Request $request, $id)
+    {
+        $data = User::findOrFail($id);
+
+        return view('detail', compact('data'));
+    }
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [

@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     Route::get('/serverside', [DataTableController::class, 'serverside'])->name('serverside.index');
 
     Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('user.edit');
+    Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('user.detail');
     Route::put('/update/{id}', [HomeController::class, 'update'])->name('user.update');
     Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete');
 });

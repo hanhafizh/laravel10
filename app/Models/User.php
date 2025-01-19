@@ -50,4 +50,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Ktp::class);
     }
+
+    // relasi one to many
+    public function rumahs()
+    {
+        // return $this->hasMany(Rumah::class);
+        return $this->hasMany(Rumah::class, 'user_id', 'id');
+    }
 }

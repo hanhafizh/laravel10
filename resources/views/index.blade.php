@@ -70,6 +70,8 @@
                                                 <td>{{ $dataUser->name }}</td>
                                                 <td>{{ $dataUser->email }}</td>
                                                 <td>
+                                                    <a href="{{ route('admin.user.detail', ['id' => $dataUser->id]) }}"
+                                                        class="btn btn-info"><i class="fas fa-eye"></i>Detail</a>
                                                     <a href="{{ route('admin.user.edit', ['id' => $dataUser->id]) }}"
                                                         class="btn btn-primary"><i class="fas fa-pen"></i>Edit</a>
                                                     <a data-toggle="modal" data-target="#modal-hapus{{ $dataUser->id }}"
