@@ -52,6 +52,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Photo Profile</th>
+                                            <th>NIK</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>Action</th>
@@ -64,6 +65,8 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td><img src="{{ asset('storage/photo-user/' . $dataUser->image) }}"
                                                         alt="" width="50"></td>
+                                                {{-- nik relasi one to one --}}
+                                                <td>{{ $dataUser->ktp->nik ?? '' }}</td>
                                                 <td>{{ $dataUser->name }}</td>
                                                 <td>{{ $dataUser->email }}</td>
                                                 <td>
