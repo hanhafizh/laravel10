@@ -60,10 +60,12 @@ class PermissionSeeder extends Seeder
 
         // add role to user
         $user_admin = User::find(1);
-        $user_writer = User::find(34);
+        $user_writer = User::find(10034);
+        $user_guest = User::find(10035);
 
-        $user_admin->assignRole(['admin']);
+        $user_admin->assignRole(['admin', 'writer']);
         $user_writer->assignRole(['writer']);
+        $user_guest->assignRole(['guest']);
 
         # example 2 roles
         // $user_admin->assignRole(['admin', 'writer']);
