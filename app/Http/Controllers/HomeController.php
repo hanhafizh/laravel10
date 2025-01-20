@@ -42,6 +42,22 @@ class HomeController extends Controller
         return view('index', compact('data', 'request'));
     }
 
+    public function asset(Request $request)
+    {
+        // many to many relation
+        // $data = User::get();
+        $data = new User;
+
+        if ($request->get('search')) {
+            $data = $data->where('name', 'LIKE', '%' . $request->get('search') . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->get('search') . '%');
+        }
+
+        $data = $data->get();
+
+        return view('assets', compact('data', 'request'));
+    }
+
     public function create()
     {
         return view('create');

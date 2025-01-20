@@ -57,4 +57,10 @@ class User extends Authenticatable
         // return $this->hasMany(Rumah::class);
         return $this->hasMany(Rumah::class, 'user_id', 'id');
     }
+
+    // relasi many to many
+    public function assets()
+    {
+        return $this->belongsToMany(Asset::class, 'users_assets');
+    }
 }

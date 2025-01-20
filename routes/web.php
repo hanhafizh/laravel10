@@ -17,6 +17,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     // Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('role:admin|writer');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
+    Route::get('/asset', [HomeController::class, 'asset'])->name('asset.index');
+
     Route::get('/user', [HomeController::class, 'index'])->name('user.index');
     Route::get('/create', [HomeController::class, 'create'])->name('user.create');
     Route::post('/store', [HomeController::class, 'store'])->name('user.store');
